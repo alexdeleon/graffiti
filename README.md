@@ -39,10 +39,10 @@ object GreetingApp extends App {
 
   val hello = new HelloService
   val bye = new ByeService
-  val api = system.actorOf(ApiActor(Api(hello(), bye())))
+  val service = system.actorOf(ServiceActor.props(hello ~ bye)))
 
   implicit val timeout = Timeout(5.seconds)
-  IO(Http) ? Http.Bind(api, interface = "localhost", port = 8080)
+  IO(Http) ? Http.Bind(service, interface = "localhost", port = 8080)
 }
 ```
 

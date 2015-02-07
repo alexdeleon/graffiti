@@ -1,20 +1,19 @@
 package graffiti
 
-import akka.actor.Actor.Receive
 import akka.actor.Props
 import spray.routing.{HttpServiceActor, Route}
 
 /**
  * @author Alexander De Leon <me@alexdeleon.name>
  */
-trait ApiActor extends HttpServiceActor {
+trait ServiceActor extends HttpServiceActor {
   val route: Route
   override def receive: Receive = runRoute(route)
 }
 
-object ApiActor {
-  def apply(r: Route): Props = Props(new ApiActor {
+object ServiceActor {
+  def props(r: Route): Props = Props(new ServiceActor {
     override val route: Route = r
   })
-  def apply(service: Service): Props = ApiActor(service())
+  def props(service: Service): Props = props(service())
 }

@@ -1,6 +1,6 @@
 package graffiti
 
-import spray.routing.{RequestContext, Directives, HttpService, Route}
+import spray.routing.{Directives, Route}
 
 /**
  * @author Alexander De Leon <me@alexdeleon.name>
@@ -16,6 +16,13 @@ abstract class Service(path: Option[String] = None) extends (() => Route) with D
     case Some(p) => pathPrefix(p) { serviceRoute }
   }
 
-  def route(r: Route): Unit = serviceRoute = r ~ serviceRoute
-  
+  def route(route: Route): Unit = serviceRoute = route ~ serviceRoute
+
+  def ~(next: Service) = Service.compose(this, next)
+}
+
+object Service {
+  def compose(services: Service*): Service = new Service() {
+    route(services.map(_.apply).reduceLeft(_ ~ _))
+  }
 }
