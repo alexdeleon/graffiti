@@ -1,19 +1,18 @@
 package graffiti.ioc
 
 import com.typesafe.config.Config
-import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
-import org.springframework.core.env.{MutablePropertySources, AbstractEnvironment, ConfigurableEnvironment, PropertySource}
+import org.springframework.core.env.{AbstractEnvironment, ConfigurableEnvironment, MutablePropertySources, PropertySource}
 
-import scala.reflect.{ClassTag, classTag}
 import scala.collection.JavaConversions._
+import scala.reflect.{ClassTag, classTag}
 
 /**
  * @author Alexander De Leon <me@alexdeleon.name>
  */
 class SpringInjector[C: ClassTag](config: Config) extends Injector {
 
-  import SpringInjector._
+  import graffiti.ioc.SpringInjector._
 
   private val springContext = new AnnotationConfigApplicationContext()
   springContext.register(classTag[C].runtimeClass)
@@ -31,7 +30,7 @@ class SpringInjector[C: ClassTag](config: Config) extends Injector {
 }
 
 object SpringInjector {
-  
+
   implicit def configToPropertySource(config: Config): PropertySource[Config] =
     new PropertySource("Graffiti application config", config) {
       override def getProperty(name: String): AnyRef =

@@ -21,8 +21,9 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka"   %%  "akka-actor"    % AkkaVersion,
   "com.typesafe.akka"   %%  "akka-testkit"  % AkkaVersion  % "test",
   "net.ceedubs"         %%  "ficus"         % "1.1.2",
-  "com.github.scopt"    %%  "scopt"         % "3.3.0",
-  "org.clapper"         %% "grizzled-slf4j" % "1.0.2",
-  "org.springframework" % "spring-context"  % SpringVersion
+  "net.elehack.argparse4s" % "argparse4s_2.10"  % "0.2.2",
+  "org.clapper"         %%  "grizzled-slf4j" % "1.0.2",
+  "org.springframework" %   "spring-context" % SpringVersion,
+  "ch.qos.logback" % "logback-classic" % "1.1.2"
 )
 

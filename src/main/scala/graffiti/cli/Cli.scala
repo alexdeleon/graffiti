@@ -1,32 +1,42 @@
 package graffiti.cli
 
 import graffiti.Context
-import scopt.OptionParser
+import net.elehack.argparse4s.{Subcommand, ExecutionContext, MasterCommand}
+import net.sourceforge.argparse4j.inf.ArgumentParserException
+import net.sourceforge.argparse4j.internal.UnrecognizedCommandException
 
 /**
  * @author Alexander De Leon <me@alexdeleon.name>
  */
-class Cli(appName: String, appCommands: Command*) {
+object Cli{
 
-  def run(args: Array[String], context: Context) = {
-    val parser = new OptionParser[ProgramArguments](appName) {
-      for(c <- appCommands) {
-        val definition = cmd(c.name) action { (_, args) => args.copy(command = Some(c)) }
-        c.description.map(definition.text(_))
+  def apply(appName: String, context: Context, appCommands: CliCommand*) = new MasterCommand {
+
+    override def subcommands: Seq[Subcommand] = appCommands
+
+    override def name: String = appName
+
+    override def run()(implicit exc: ExecutionContext): Unit = {
+      subcommand match {
+        case Some(cmd) => cmd.run()
+        case None => printHelpAndExit()
       }
     }
-    parser.parse(args, ProgramArguments()) match {
-      case Some(ProgramArguments(Some(command), params)) => command(context)
-      case Some(ProgramArguments(None,_)) => {
-        parser.reportError("You must specify a command")
-        parser.showUsage
+
+    override def run(args: Seq[String]): Unit = {
+      try {
+        super.run(args)
+      } catch {
+        case e: ArgumentParserException => {
+          println(e.getMessage)
+          printHelpAndExit()
+        }
       }
-      case None => {
-        parser.showUsage
-        System.exit(1)
-      }
+    }
+
+    private def printHelpAndExit() = {
+      parser.printHelp()
+      System.exit(5)
     }
   }
 }
-
-case class ProgramArguments(command:Option[Command] = None, parameters: Option[Map[String,Any]] = None)
