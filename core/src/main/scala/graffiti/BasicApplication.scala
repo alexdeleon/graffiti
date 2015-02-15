@@ -22,8 +22,8 @@ object BasicInjector {
   def apply(app: BasicApplication) = new Injector {
 
     override def getInstance[T: ClassTag]: T = classTag[T].runtimeClass match {
-      case _:Class[ActorSystem] => app.system.asInstanceOf[T]
-      case _:Class[Service] => app.service.asInstanceOf[T]
+      case c if c == classOf[ActorSystem] => app.system.asInstanceOf[T]
+      case c if c == classOf[Service] => app.service.asInstanceOf[T]
       case _ => throw new IllegalArgumentException("Basic injector only supports injection of ActorSystem and Services")
     }
 

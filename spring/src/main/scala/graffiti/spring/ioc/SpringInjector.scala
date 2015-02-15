@@ -1,6 +1,7 @@
-package graffiti.ioc
+package graffiti.spring.ioc
 
 import com.typesafe.config.Config
+import graffiti.ioc.Injector
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.core.env.{AbstractEnvironment, ConfigurableEnvironment, MutablePropertySources, PropertySource}
 
@@ -11,8 +12,7 @@ import scala.reflect.{ClassTag, classTag}
  * @author Alexander De Leon <me@alexdeleon.name>
  */
 class SpringInjector[C: ClassTag](config: Config) extends Injector {
-
-  import graffiti.ioc.SpringInjector._
+  import SpringInjector.Implicits._
 
   private val springContext = new AnnotationConfigApplicationContext()
   springContext.register(classTag[C].runtimeClass)
@@ -31,16 +31,19 @@ class SpringInjector[C: ClassTag](config: Config) extends Injector {
 
 object SpringInjector {
 
-  implicit def configToPropertySource(config: Config): PropertySource[Config] =
-    new PropertySource("Graffiti application config", config) {
-      override def getProperty(name: String): AnyRef =
-        if(config.hasPath(name)) config.getAnyRef(name) else null
-    }
-
-  implicit def configToEnvironment(config: Config): ConfigurableEnvironment =
-    new AbstractEnvironment {
-      override def customizePropertySources(propertySources: MutablePropertySources): Unit = {
-        propertySources.addLast(config)
+  object Implicits
+  {
+    implicit def configToPropertySource(config: Config): PropertySource[Config] =
+      new PropertySource("Graffiti application config", config) {
+        override def getProperty(name: String): AnyRef =
+          if (config.hasPath(name)) config.getAnyRef(name) else null
       }
-    }
+
+    implicit def configToEnvironment(config: Config): ConfigurableEnvironment =
+      new AbstractEnvironment {
+        override def customizePropertySources(propertySources: MutablePropertySources): Unit = {
+          propertySources.addLast(config)
+        }
+      }
+  }
 }

@@ -1,8 +1,5 @@
 package graffiti.cli
 
-import net.elehack.argparse4s.ExecutionContext
-import net.sourceforge.argparse4j.inf.Subparsers
-import org.mockito.Mockito._
 import org.scalatest.mock.MockitoSugar
 import org.scalatest.{FlatSpec, Matchers}
 

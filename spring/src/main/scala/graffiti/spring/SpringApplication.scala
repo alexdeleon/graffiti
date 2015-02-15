@@ -1,6 +1,8 @@
-package graffiti
+package graffiti.spring
 
-import graffiti.ioc.{Injector, SpringInjector}
+import graffiti.Application
+import graffiti.ioc.Injector
+import graffiti.spring.ioc.SpringInjector
 
 import scala.reflect.ClassTag
 

@@ -3,9 +3,9 @@ package graffiti.cli
 import graffiti.Context
 import net.elehack.argparse4s.ExecutionContext
 import org.mockito.Mockito._
-import org.mockito.{ Matchers => MockitoMatchers }
+import org.mockito.{Matchers => MockitoMatchers}
 import org.scalatest.mock.MockitoSugar
-import org.scalatest.{Matchers, FlatSpec}
+import org.scalatest.{FlatSpec, Matchers}
 
 /**
  * @author Alexander De Leon <me@alexdeleon.name>

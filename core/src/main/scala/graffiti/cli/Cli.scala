@@ -1,9 +1,8 @@
 package graffiti.cli
 
 import graffiti.Context
-import net.elehack.argparse4s.{Subcommand, ExecutionContext, MasterCommand}
+import net.elehack.argparse4s.{ExecutionContext, MasterCommand, Subcommand}
 import net.sourceforge.argparse4j.inf.ArgumentParserException
-import net.sourceforge.argparse4j.internal.UnrecognizedCommandException
 
 /**
  * @author Alexander De Leon <me@alexdeleon.name>

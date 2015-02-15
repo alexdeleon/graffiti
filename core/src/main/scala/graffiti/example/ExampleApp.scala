@@ -1,10 +1,8 @@
 package graffiti.example
 
-import akka.actor.ActorSystem
+import graffiti.BasicApplication
 import graffiti.cli.Command
-import graffiti.{BasicApplication, Context, SpringApplication}
 import net.elehack.argparse4s.ExecutionContext
-import org.springframework.context.annotation.{Bean, Configuration}
 
 /**
  * @author Alexander De Leon <me@alexdeleon.name>
