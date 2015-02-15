@@ -2,14 +2,14 @@ package graffiti.example
 
 import akka.actor.ActorSystem
 import graffiti.cli.Command
-import graffiti.{Context, SpringApplication}
+import graffiti.{BasicApplication, Context, SpringApplication}
 import net.elehack.argparse4s.ExecutionContext
 import org.springframework.context.annotation.{Bean, Configuration}
 
 /**
  * @author Alexander De Leon <me@alexdeleon.name>
  */
-object ExampleApp extends SpringApplication[ExampleAppIoc]("exampleApp") {
+object ExampleApp extends BasicApplication("exampleApp") {
 
   command("cli") {
     println("This is the cli")
@@ -25,9 +25,4 @@ object ExampleApp extends SpringApplication[ExampleAppIoc]("exampleApp") {
     }
   })
 
-}
-
-@Configuration
-class ExampleAppIoc {
-  @Bean def system() = ActorSystem.create("exampleApp")
 }
