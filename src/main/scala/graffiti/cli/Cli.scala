@@ -10,7 +10,7 @@ import net.sourceforge.argparse4j.internal.UnrecognizedCommandException
  */
 object Cli{
 
-  def apply(appName: String, context: Context, appCommands: CliCommand*) = new MasterCommand {
+  def apply(appName: String, context: Context, appCommands: Command*) = new MasterCommand {
 
     override def subcommands: Seq[Subcommand] = appCommands
 

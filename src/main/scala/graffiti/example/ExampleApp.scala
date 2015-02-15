@@ -1,7 +1,7 @@
 package graffiti.example
 
 import akka.actor.ActorSystem
-import graffiti.cli.CliCommand
+import graffiti.cli.Command
 import graffiti.{Context, SpringApplication}
 import net.elehack.argparse4s.ExecutionContext
 import org.springframework.context.annotation.{Bean, Configuration}
@@ -15,7 +15,7 @@ object ExampleApp extends SpringApplication[ExampleAppIoc]("exampleApp") {
     println("This is the cli")
   }
 
-  command(new CliCommand(
+  command(new Command(
     name = "cli2",
     desc = Some("the second cli")) {
     val verbose = flag('v', "verbose").
