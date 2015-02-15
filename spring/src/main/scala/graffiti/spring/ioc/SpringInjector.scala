@@ -2,7 +2,9 @@ package graffiti.spring.ioc
 
 import com.typesafe.config.Config
 import graffiti.ioc.Injector
-import org.springframework.context.annotation.AnnotationConfigApplicationContext
+import org.springframework.beans.factory.config.BeanDefinitionHolder
+import org.springframework.context.annotation.{Bean, Configuration, AnnotationConfigApplicationContext}
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer
 import org.springframework.core.env.{AbstractEnvironment, ConfigurableEnvironment, MutablePropertySources, PropertySource}
 
 import scala.collection.JavaConversions._
@@ -15,8 +17,9 @@ class SpringInjector[C: ClassTag](config: Config) extends Injector {
   import SpringInjector.Implicits._
 
   private val springContext = new AnnotationConfigApplicationContext()
-  springContext.register(classTag[C].runtimeClass)
   springContext.setEnvironment(config)
+  springContext.register(classOf[PropertySourcesPlaceholderConfiguration])
+  springContext.register(classTag[C].runtimeClass)
   springContext.refresh()
 
   override def getInstance[T: ClassTag]: T =
@@ -45,5 +48,16 @@ object SpringInjector {
           propertySources.addLast(config)
         }
       }
+  }
+}
+
+@Configuration
+class PropertySourcesPlaceholderConfiguration {
+  @Bean
+  def myPropertySourcesPlaceholderConfigurer : PropertySourcesPlaceholderConfigurer = {
+    val placeholderConfigurer = new PropertySourcesPlaceholderConfigurer()
+    placeholderConfigurer.setNullValue("@null")
+    placeholderConfigurer.setLocalOverride(true)
+    placeholderConfigurer
   }
 }
