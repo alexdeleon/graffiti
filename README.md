@@ -1,3 +1,5 @@
+![travis](https://travis-ci.org/alexdeleon/graffiti.svg?branch=master)
+
 # Graffiti
 
 Graffiti is a utility library that allows you to use [Spray](http://spray.io) with a common pattern for building REST services.
