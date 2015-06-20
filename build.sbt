@@ -7,8 +7,17 @@ scalaVersion in ThisBuild := "2.11.5"
 name := "graffiti"
 
 resolvers in ThisBuild ++= Seq(
-  "Sonatype OSS Releases"  at "http://oss.sonatype.org/content/repositories/releases/"
+  Resolver.mavenLocal,
+  Resolver.sonatypeRepo("releases"),
+  "Alexander De Leon OSS Maven Repo (Snapshots)" at "http://maven.alexdeleon.name/snapshot",
+  "Alexander De Leon OSS Maven Repo (Release)" at "http://maven.alexdeleon.name/release"
 )
+
+isSnapshot := true
+
+publishTo := Some("S3 Snapshots)" at "s3://maven.alexdeleon.name/snapshot")
+
+lazy val root = (project in file(".")).enablePlugins(UniversalDeployPlugin)
 
 lazy val core = project
 lazy val spring = project.dependsOn(core)
