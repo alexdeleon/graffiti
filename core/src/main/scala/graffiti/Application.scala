@@ -11,12 +11,13 @@ import net.elehack.argparse4s.ExecutionContext
  */
 abstract class Application(appName: String) {
 
-  lazy val config: Config = ConfigFactory.load() withFallback ConfigFactory.load("graffiti")
-  implicit lazy val context: Context = Context(config, createInjector)
+  implicit lazy val config: Config = ConfigFactory.load() withFallback ConfigFactory.load("graffiti")
+  implicit lazy val context: Context = createContext
 
   private var commands: List[Command] = List(new ServerCommand)
 
-  def createInjector: Injector = throw new IllegalStateException("You must mixin one of the Injector traits")
+  protected def createInjector: Injector = throw new IllegalStateException("You must mixin one of the Injector traits")
+  protected def createContext: Context = Context(config, createInjector)
 
   def command(name: String)(f:  => Unit): Unit = command(new Command(name) {
     Ensuring(name != null, "Commands must have a name")
