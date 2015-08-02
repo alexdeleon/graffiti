@@ -91,7 +91,8 @@ trait AuthorizationDirectives {
               val method = matchesMethod(extract(_.request.method.toString()).flatMap[HNil].toString(), rule)
               val uri = matchesUriPath(extract(_.request.uri.path.toString()).flatMap[HNil].toString(), rule)
               val token = matchesTokenType(authorizationInfo.tokenReader.getInfo, rule)
-              val mediatype = matchesMediaTypes(headerValueByName("Accept").flatMap[HNil].toString().split(","), rule)
+              val mediaType = matchesMediaTypes(headerValueByName("Accept").flatMap[HNil].toString().split(","), rule)
+              if(method && uri && token && mediaType) pass
             })
           }
         }
