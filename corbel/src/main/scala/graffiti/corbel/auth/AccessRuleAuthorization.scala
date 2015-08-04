@@ -8,11 +8,11 @@ import spray.routing.RequestContext
  * @author Alexander De Leon <me@alexdeleon.name>
  */
 class AccessRuleAuthorization(authorizationInfo: AuthorizationInfo) extends (RequestContext => Boolean)
-  with CorbelAuth {
+  with AccessRulesMatchers {
 
   def apply(requestContext: RequestContext): Boolean = {
     implicit val request = requestContext.request
-    authorizationInfo.accessRules.forall(validate)
+    authorizationInfo.accessRules.exists(validate)
   }
 
   def validate(rule: JsonObject)(implicit request: HttpRequest): Boolean = {
@@ -22,8 +22,4 @@ class AccessRuleAuthorization(authorizationInfo: AuthorizationInfo) extends (Req
     matchesMediaTypes(request.acceptedMediaRanges.map(_.value), rule)
   }
 
-}
-
-object AccessRuleAuthorization {
-  def apply(authorizationInfo: AuthorizationInfo) = new AccessRuleAuthorization(authorizationInfo)
 }
