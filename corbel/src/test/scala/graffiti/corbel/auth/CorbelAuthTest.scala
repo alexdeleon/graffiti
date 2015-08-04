@@ -19,7 +19,7 @@ import spray.http.MediaTypes._
 /**
  * @author Alexander De Leon <me@alexdeleon.name>
  */
-class CorbelAuth$Test extends FlatSpec with ScalatestRouteTest with HttpService with MockitoSugar with Matchers with ScalaFutures {
+class CorbelAuthTest extends FlatSpec with ScalatestRouteTest with HttpService with MockitoSugar with Matchers with ScalaFutures {
   def actorRefFactory = system // connect the DSL to the test ActorSystem
 
   val serviceMock = mock[AuthorizationRulesService]
