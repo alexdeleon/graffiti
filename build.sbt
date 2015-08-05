@@ -20,4 +20,5 @@ publishTo := Some("S3 Snapshots)" at "s3://maven.alexdeleon.name/snapshot")
 lazy val root = (project in file(".")).enablePlugins(UniversalDeployPlugin)
 
 lazy val core = project
+lazy val corbel = project.dependsOn(core)
 lazy val spring = project.dependsOn(core)
