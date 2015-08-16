@@ -1,4 +1,4 @@
-organization in ThisBuild := "com.github.alexdeleon"
+organization in ThisBuild := "com.devialab"
 
 version in ThisBuild := "0.0.1-SNAPSHOT"
 
@@ -8,16 +8,15 @@ name := "graffiti"
 
 resolvers in ThisBuild ++= Seq(
   Resolver.mavenLocal,
-  Resolver.sonatypeRepo("releases"),
-  "Alexander De Leon OSS Maven Repo (Snapshots)" at "http://maven.alexdeleon.name/snapshot",
-  "Alexander De Leon OSS Maven Repo (Release)" at "http://maven.alexdeleon.name/release"
+  Resolver.sonatypeRepo("releases")
 )
 
-isSnapshot := true
+credentials in ThisBuild += Credentials(Path.userHome / ".ivy2" / ".credentials")
 
-publishTo := Some("S3 Snapshots)" at "s3://maven.alexdeleon.name/snapshot")
+publishTo in ThisBuild := Some("Artifactory Realm" at "http://artifacts.devialab.com/artifactory/devialab-snapshot-local;build.timestamp=" + new java.util.Date().getTime)
 
-lazy val root = (project in file(".")).enablePlugins(UniversalDeployPlugin)
+publishMavenStyle in ThisBuild := true
+
 
 lazy val core = project
 lazy val corbel = project.dependsOn(core)
