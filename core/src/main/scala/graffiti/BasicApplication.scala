@@ -3,18 +3,20 @@ package graffiti
 import akka.actor.ActorSystem
 import graffiti.boilerplate.BoilerplateService
 import graffiti.ioc.Injector
+import graffiti.mixin.ServiceInjection
 
 import scala.reflect.{ClassTag, classTag}
 
 /**
  * @author Alexander De Leon <me@alexdeleon.name>
  */
-class BasicApplication(name: String) extends Application(name) {
+class BasicApplication(val name: String) extends Application(name) with ServiceInjection {
 
-  def system: ActorSystem = ActorSystem(name)
-  def service: Service = BoilerplateService()
+  lazy val system: ActorSystem = ActorSystem(name)
 
   override def createInjector: Injector = BasicInjector(this)
+
+  def service: Service = BoilerplateService()
 
 }
 
@@ -29,7 +31,7 @@ object BasicInjector {
 
     override def getInstance[T: ClassTag](name: String): T = throw new UnsupportedOperationException
 
-    override def getInstances[T: ClassTag]: Seq[T] = throw new UnsupportedOperationException
+    override def getInstances[T: ClassTag]: Seq[T] = Option(getInstance[T]).map(Seq(_)).orNull
 
   }
 }

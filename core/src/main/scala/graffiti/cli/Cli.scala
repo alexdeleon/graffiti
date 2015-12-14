@@ -9,7 +9,7 @@ import net.sourceforge.argparse4j.inf.ArgumentParserException
  */
 object Cli{
 
-  def apply(appName: String, context: Context, appCommands: Command*) = new MasterCommand {
+  def apply(appName: String, appCommands: Command*) = new MasterCommand {
 
     override def subcommands: Seq[Subcommand] = appCommands
 

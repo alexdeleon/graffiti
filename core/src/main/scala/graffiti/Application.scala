@@ -27,7 +27,7 @@ abstract class Application(appName: String) {
   def command(cliCommand: Command): Unit = commands ::= cliCommand
 
   final def main(args: Array[String]) {
-    Cli(appName, context, commands:_*).run(args)
+    Cli(appName, commands:_*).run(args)
   }
 
 }
