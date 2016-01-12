@@ -1,10 +1,10 @@
 package graffiti.corbel
 
 import graffiti.oauth.OAuth
+import spray.routing.Directives._
 import spray.routing._
 
 import scala.concurrent.ExecutionContext
-import spray.routing.Directives._
 /**
  * @author Alexander De Leon <me@alexdeleon.name>
  */

@@ -2,7 +2,6 @@ package graffiti.banner
 
 import java.io._
 
-
 import org.apache.commons.io.IOUtils
 
 import scala.Option

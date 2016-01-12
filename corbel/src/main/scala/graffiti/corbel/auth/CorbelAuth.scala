@@ -4,9 +4,8 @@ import com.google.gson.JsonObject
 import grizzled.slf4j.Logging
 import io.corbel.lib.token.parser.TokenParser
 import io.corbel.lib.token.reader.TokenReader
-
 import io.corbel.lib.ws.auth.AuthorizationRulesService
-import scala.concurrent.ExecutionContext
+
 import scala.collection.JavaConverters._
 
 /**

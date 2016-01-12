@@ -1,6 +1,6 @@
 package graffiti.corbel.auth
 
-import com.google.gson.{JsonElement, JsonPrimitive, JsonArray, JsonObject}
+import com.google.gson.{JsonArray, JsonElement, JsonObject, JsonPrimitive}
 import io.corbel.lib.token.TokenInfo
 
 /**

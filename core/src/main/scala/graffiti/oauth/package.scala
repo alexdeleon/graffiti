@@ -1,7 +1,5 @@
 package graffiti
 
-import spray.http.OAuth2BearerToken
-
 import scala.concurrent.Future
 
 /**

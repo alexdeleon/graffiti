@@ -1,6 +1,6 @@
 package graffiti.mixin
 
-import graffiti.{Service, Context, Application}
+import graffiti.{Application, Context, Service}
 
 /**
  * @author Alexander De Leon <me@alexdeleon.name>

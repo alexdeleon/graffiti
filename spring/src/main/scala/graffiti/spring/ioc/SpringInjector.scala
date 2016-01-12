@@ -2,10 +2,9 @@ package graffiti.spring.ioc
 
 import com.typesafe.config.Config
 import graffiti.ioc.Injector
-import org.springframework.beans.factory.config.BeanDefinitionHolder
-import org.springframework.context.annotation.{Bean, Configuration, AnnotationConfigApplicationContext}
+import org.springframework.context.annotation.{AnnotationConfigApplicationContext, Bean, Configuration}
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer
-import org.springframework.core.env.{AbstractEnvironment, ConfigurableEnvironment, MutablePropertySources, PropertySource}
+import org.springframework.core.env.PropertySource
 
 import scala.collection.JavaConversions._
 import scala.reflect.{ClassTag, classTag}

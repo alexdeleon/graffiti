@@ -1,6 +1,5 @@
 package graffiti.cli
 
-import graffiti.Context
 import net.elehack.argparse4s.ExecutionContext
 import org.mockito.Mockito._
 import org.mockito.{Matchers => MockitoMatchers}

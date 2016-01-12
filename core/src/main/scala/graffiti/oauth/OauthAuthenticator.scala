@@ -1,13 +1,9 @@
 package graffiti.oauth
 
-import com.typesafe.config.Config
-import spray.routing.{RequestContext, AuthenticationFailedRejection}
-import spray.routing.authentication.{UserPass, HttpAuthenticator, ContextAuthenticator}
-import scala.concurrent.{ ExecutionContext, Future }
+import spray.http.HttpHeaders._
 import spray.http._
-import spray.util._
-import HttpHeaders._
-import AuthenticationFailedRejection._
+import spray.routing.RequestContext
+import spray.routing.authentication.HttpAuthenticator
 
 import scala.concurrent.{ExecutionContext, Future}
 

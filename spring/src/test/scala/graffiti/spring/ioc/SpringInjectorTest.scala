@@ -1,10 +1,10 @@
 package graffiti.spring.ioc
 
-import com.typesafe.config.{ConfigFactory, Config}
-import org.scalamock.scalatest.MockFactory
-import org.scalatest.{Matchers, FlatSpec}
+import com.typesafe.config.ConfigFactory
+import org.scalatest.{FlatSpec, Matchers}
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.{Bean, Configuration}
+
 import scala.collection.JavaConversions._
 
 /**

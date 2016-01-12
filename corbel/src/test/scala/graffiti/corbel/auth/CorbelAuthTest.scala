@@ -5,17 +5,18 @@ import io.corbel.lib.token.TokenInfo
 import io.corbel.lib.token.parser.TokenParser
 import io.corbel.lib.token.reader.TokenReader
 import io.corbel.lib.ws.auth.AuthorizationRulesService
-import org.scalatest.concurrent.ScalaFutures
-import org.scalatest.{Matchers, FlatSpec}
-import org.scalatest.mock.MockitoSugar
-import spray.http.HttpHeaders._
-import spray.http.OAuth2BearerToken
-import spray.routing.{AuthorizationFailedRejection, AuthenticationFailedRejection, HttpService}
-import spray.testkit.ScalatestRouteTest
-import spray.http.StatusCodes._
 import org.mockito.Mockito._
-import scala.collection.JavaConversions._
+import org.scalatest.concurrent.ScalaFutures
+import org.scalatest.mock.MockitoSugar
+import org.scalatest.{FlatSpec, Matchers}
+import spray.http.HttpHeaders._
 import spray.http.MediaTypes._
+import spray.http.OAuth2BearerToken
+import spray.http.StatusCodes._
+import spray.routing.{AuthenticationFailedRejection, AuthorizationFailedRejection, HttpService}
+import spray.testkit.ScalatestRouteTest
+
+import scala.collection.JavaConversions._
 /**
  * @author Alexander De Leon <me@alexdeleon.name>
  */
