@@ -9,6 +9,7 @@ import org.springframework.core.env.{AbstractEnvironment, ConfigurableEnvironmen
 
 import scala.collection.JavaConversions._
 import scala.reflect.{ClassTag, classTag}
+import scala.util.{Success, Try}
 
 /**
  * @author Alexander De Leon <me@alexdeleon.name>
@@ -17,9 +18,9 @@ class SpringInjector[C: ClassTag](config: Config) extends Injector {
   import SpringInjector.Implicits._
 
   private val springContext = new AnnotationConfigApplicationContext()
-  springContext.setEnvironment(config)
   springContext.register(classOf[PropertySourcesPlaceholderConfiguration])
   springContext.register(classTag[C].runtimeClass)
+  springContext.getEnvironment.getPropertySources.addFirst(config)
   springContext.refresh()
 
   override def getInstance[T: ClassTag]: T =
@@ -39,20 +40,17 @@ object SpringInjector {
     implicit def configToPropertySource(config: Config): PropertySource[Config] =
       new PropertySource("Graffiti application config", config) {
         override def getProperty(name: String): AnyRef =
-          if (config.hasPath(name)) config.getAnyRef(name) else null
-      }
-
-    implicit def configToEnvironment(config: Config): ConfigurableEnvironment =
-      new AbstractEnvironment {
-        override def customizePropertySources(propertySources: MutablePropertySources): Unit = {
-          propertySources.addLast(config)
-        }
+          Try(config.hasPath(name)) match {
+            case Success(true) => config.getAnyRef (name)
+            case _ => null
+          }
       }
   }
 }
 
 @Configuration
-class PropertySourcesPlaceholderConfiguration {
+class PropertySourcesPlaceholderConfiguration
+object PropertySourcesPlaceholderConfiguration {
   @Bean
   def myPropertySourcesPlaceholderConfigurer : PropertySourcesPlaceholderConfigurer = {
     val placeholderConfigurer = new PropertySourcesPlaceholderConfigurer()

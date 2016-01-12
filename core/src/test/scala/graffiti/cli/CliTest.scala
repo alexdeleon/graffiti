@@ -13,16 +13,15 @@ import org.scalatest.{FlatSpec, Matchers}
 class CliTest extends FlatSpec with Matchers with MockitoSugar {
 
   val appName = "test"
-  val context = mock[Context]
 
   "Cli" should
     "configure application name" in {
-      val cli = Cli(appName, context)
+      val cli = Cli(appName)
       cli.name should be (appName)
     }
     it should "run command" in {
       val subcomand = spy(new EmptyCommand("sc"))
-      Cli(appName, context, subcomand).run(Array("sc"))
+      Cli(appName, subcomand).run(Array("sc"))
       verify(subcomand).run()(MockitoMatchers.any(classOf[ExecutionContext]))
     }
 }
