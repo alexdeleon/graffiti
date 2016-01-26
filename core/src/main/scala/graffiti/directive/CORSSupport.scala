@@ -17,17 +17,17 @@ trait CORSSupport extends Directives {
 
   def cors[T]: Directive0 = mapRequestContext { ctx => ctx.withRouteResponseHandling({
     //It is an option requeset for a resource that responds to some other method
-    case Rejected(x) if ctx.request.method.equals(HttpMethods.OPTIONS) && !x.exists(_.isInstanceOf[MethodRejection]) => {
+    case Rejected(x) if ctx.request.method.equals(HttpMethods.OPTIONS) && x.exists(_.isInstanceOf[MethodRejection]) => {
       val allowedMethods: List[HttpMethod] = x.filter(_.isInstanceOf[MethodRejection]).map(rejection => {
         rejection.asInstanceOf[MethodRejection].supported
       })
       ctx.complete(HttpResponse().withHeaders(
-        `Access-Control-Allow-Methods`(OPTIONS, allowedMethods: _*) :: allowOriginHeader(requestOrigin(ctx)) ::
+        `Access-Control-Allow-Credentials`(true) :: `Access-Control-Allow-Methods`(OPTIONS, allowedMethods: _*) :: allowOriginHeader(requestOrigin(ctx)) ::
           optionsCorsHeaders
       ))
     }
   }).withHttpResponseHeadersMapped { headers =>
-    allowOriginHeader(requestOrigin(ctx)) :: headers
+    `Access-Control-Allow-Credentials`(true) :: allowOriginHeader(requestOrigin(ctx)) :: headers
   }
   }
 
