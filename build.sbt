@@ -12,16 +12,15 @@ resolvers in ThisBuild ++= Seq(
 credentials in ThisBuild += Credentials(Path.userHome / ".ivy2" / ".credentials")
 
 //publish settings
-publishMavenStyle := true
+publishMavenStyle in ThisBuild  := true
 
-publishTo := {
+publishTo in ThisBuild  := {
   val artifactory = "http://artifacts.devialab.com/artifactory/"
   if (isSnapshot.value)
     Some("snapshots" at artifactory + "devialab-snapshot;build.timestamp=" + new java.util.Date().getTime)
   else
     Some("releases"  at artifactory + "devialab-release")
 }
-publishMavenStyle in ThisBuild := true
 
 
 lazy val core = project
