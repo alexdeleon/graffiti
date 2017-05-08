@@ -1,6 +1,6 @@
 name := "graffiti-spring"
 
-val SpringVersion = "4.1.4.RELEASE"
+val SpringVersion = "4.3.3.RELEASE"
 
 libraryDependencies ++= Seq(
   "org.springframework" %   "spring-context" % SpringVersion,
